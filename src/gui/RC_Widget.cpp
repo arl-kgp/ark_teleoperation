@@ -20,6 +20,7 @@ RC_Widget::RC_Widget(bool block_Y,
 
     press = false;
     automatic = false;
+    reset_sticks = true;
     this->block_Y = block_Y;
 
     boost::thread workerThread(&RC_Widget::run, this);
@@ -50,6 +51,13 @@ void RC_Widget::setAutomatic(bool b)
 {
     pthread_mutex_lock( &mutex );
     automatic = b;
+    pthread_mutex_unlock( &mutex );
+}
+
+void RC_Widget::setResetSticks(bool b)
+{
+    pthread_mutex_lock( &mutex );
+    reset_sticks = b;
     pthread_mutex_unlock( &mutex );
 }
 
@@ -147,35 +155,36 @@ void RC_Widget::run()
         gettimeofday(&a, NULL);
         totala = a.tv_sec * 1000000 + a.tv_usec;
 
-        //
-        pthread_mutex_lock( &mutex );
-        if(!press && !automatic){
-            if(p_actual.x()>250){
-                p_actual.setX(p_actual.x() - 10);
-                if(p_actual.x()<250)
-                    p_actual.setX(250);
-            }
-            else if(p_actual.x()<250){
-                p_actual.setX(p_actual.x() + 10);
-                if(p_actual.x()>250)
-                    p_actual.setX(250);
-            }
-            if(!block_Y){
-                if(p_actual.y()>250){
-                    p_actual.setY(p_actual.y() - 10) ;
-                    if(p_actual.y()<250)
-                        p_actual.setY(250);
+        if (reset_sticks)
+        {
+            pthread_mutex_lock( &mutex );
+            if(!press && !automatic){
+                if(p_actual.x()>250){
+                    p_actual.setX(p_actual.x() - 10);
+                    if(p_actual.x()<250)
+                        p_actual.setX(250);
                 }
-                else if(p_actual.y()<250){
-                    p_actual.setY(p_actual.y() + 10) ;
-                    if(p_actual.y()>250)
-                        p_actual.setY(250);
+                else if(p_actual.x()<250){
+                    p_actual.setX(p_actual.x() + 10);
+                    if(p_actual.x()>250)
+                        p_actual.setX(250);
                 }
-            }
+                if(!block_Y){
+                    if(p_actual.y()>250){
+                        p_actual.setY(p_actual.y() - 10) ;
+                        if(p_actual.y()<250)
+                            p_actual.setY(250);
+                    }
+                    else if(p_actual.y()<250){
+                        p_actual.setY(p_actual.y() + 10) ;
+                        if(p_actual.y()>250)
+                            p_actual.setY(250);
+                    }
+                }
 
+            }
+            pthread_mutex_unlock( &mutex );
         }
-        pthread_mutex_unlock( &mutex );
-        //
 
         gettimeofday(&b, NULL);
         totalb = b.tv_sec * 1000000 + b.tv_usec;

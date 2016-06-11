@@ -30,6 +30,7 @@ public:
     void setYValue(int a);
     void setXValue(int a);
 
+    void setResetSticks(bool b);
     void setAutomatic(bool b);
 
 private:
@@ -38,6 +39,7 @@ private:
     bool press;
     bool automatic;
     bool block_Y;
+    bool reset_sticks;
     void run();
 
     int ejeX;

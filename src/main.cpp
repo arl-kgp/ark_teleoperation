@@ -29,11 +29,11 @@ int main(int argc, char* argv[])
     threadGUI* t_gui = new threadGUI(share_memory, t_ros);
     t_gui->start();
 
-    Subscribe_ark_commands ark_command(share_memory, t_gui);
-    //ros::Subscriber ark_commands_sub = n.subscribe("/ark/commands",
-    //                                               1,
-    //                                               &Subscribe_ark_commands::arkCommandsCb,
-    //                                               &ark_commands);
+    Subscribe_ark_commands ros_shared_control(share_memory, t_gui);
+    ros::Subscriber ark_commands_sub = n.subscribe("/ark/commands",
+                                                   1,
+                                                   &Subscribe_ark_commands::rosSharedControlCb,
+                                                   &ros_shared_control);
 
     a.connect(&a, SIGNAL(lastWindowClosed()), t_gui->gui, SLOT(on_closed_event()));
 

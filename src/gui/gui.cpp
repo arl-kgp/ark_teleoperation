@@ -140,6 +140,8 @@ void GUI::on_check_override_changed()
 void GUI::on_check_shared_control_changed()
 {
     share_memory->setSharedControl(check_shared_control->isChecked());
+    channel12->setResetSticks(!check_shared_control->isChecked());
+    channel34->setResetSticks(!check_shared_control->isChecked());
 }
 
 void GUI::updateThreadGUI()
