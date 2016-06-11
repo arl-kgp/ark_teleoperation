@@ -118,6 +118,22 @@ void RC_Widget::setXAxis(int a)
     pthread_mutex_unlock( &mutex );
 }
 
+void RC_Widget::setYValue(int a)
+{
+    pthread_mutex_lock( &mutex );
+    int axis_value = 250 - (a - ((min_value_up_down + max_value_up_down)/2))*250/500;
+    p_actual.setY(axis_value);
+    pthread_mutex_unlock( &mutex );
+}
+
+void RC_Widget::setXValue(int a)
+{
+    pthread_mutex_lock( &mutex );
+    int axis_value = 250 - (a - ((min_value_left_right + max_value_left_right)/2))*250/500;
+    p_actual.setX(axis_value);
+    pthread_mutex_unlock( &mutex );
+}
+
 
 void RC_Widget::run()
 {

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ros_erle_teleoperation)
+project(ark_teleoperation)
 include(FindPkgConfig)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -33,13 +33,13 @@ catkin_package()
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} ${Eigen_INCLUDE_DIRS} )
 
-add_executable(ros_erle_teleoperation ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP})
+add_executable(ark_teleoperation ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP})
 message(${catkin_LIBRARIES})
-target_link_libraries(ros_erle_teleoperation ${catkin_LIBRARIES} ${OpenCV_LIBS} ${OpenCV_LIBRARIES} ${Eigen_LIBRARIES}  ${QT_LIBRARIES} ${ROS_LIBRARIES} ${catkin_LIBRARIES})
-add_dependencies(ros_erle_teleoperation ros_erle_teleoperation)
+target_link_libraries(ark_teleoperation ${catkin_LIBRARIES} ${OpenCV_LIBS} ${OpenCV_LIBRARIES} ${Eigen_LIBRARIES}  ${QT_LIBRARIES} ${ROS_LIBRARIES} ${catkin_LIBRARIES})
+add_dependencies(ark_teleoperation ark_teleoperation)
 
 install(
-	TARGETS ros_erle_teleoperation
+	TARGETS ark_teleoperation
 	ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 	LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 	RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

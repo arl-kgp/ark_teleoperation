@@ -24,6 +24,22 @@ bool Shared_Memory::getOverride()
     return result;
 }
 
+void Shared_Memory::setSharedControl(bool b)
+{
+    pthread_mutex_lock( &mutex );
+    this->shared_control =b;
+    pthread_mutex_unlock( &mutex );
+}
+
+bool Shared_Memory::getSharedControl()
+{
+    bool result;
+    pthread_mutex_lock( &mutex );
+    result = this->shared_control;
+    pthread_mutex_unlock( &mutex );
+    return result;
+}
+
 std::string Shared_Memory::getModeChange()
 {
     std::string result;

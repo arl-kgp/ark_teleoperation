@@ -27,6 +27,9 @@ public:
     void setYAxis(int a);
     void setXAxis(int a);
 
+    void setYValue(int a);
+    void setXValue(int a);
+
     void setAutomatic(bool b);
 
 private:

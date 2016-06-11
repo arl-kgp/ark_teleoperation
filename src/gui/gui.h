@@ -29,6 +29,8 @@ public:
     ~GUI();
     void updateThreadGUI();
     bool getEnd_thread();
+    RC_Widget* channel12;
+    RC_Widget* channel34;
 
 private:
     Shared_Memory* share_memory;
@@ -40,15 +42,13 @@ private:
     QLabel* label_mode;
     QComboBox* combo_mode;
 
-    RC_Widget* channel12;
-    RC_Widget* channel34;
-
     QLabel* label_pitch;
     QLabel* label_roll;
     QLabel* label_throttle;
     QLabel* label_yaw;
 
     QCheckBox* check_override;
+    QCheckBox* check_shared_control;
 
     Thread_ROS* t_ros;
     bool end_thread;
@@ -60,6 +60,7 @@ public slots:
     void on_updateGUI_recieved();
     void on_combo_mode_changed();
     void on_check_override_changed();
+    void on_check_shared_control_changed();
     void keyPressEvent(QKeyEvent *e);
     void on_closed_event();
 };

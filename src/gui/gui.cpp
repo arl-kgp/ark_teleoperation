@@ -105,6 +105,7 @@ void GUI::config_RC()
     label_throttle = new QLabel();
 
     check_override = new QCheckBox("Override RC");
+    check_shared_control = new QCheckBox("Shared Control");
 
     QGridLayout* laychannel12 = new QGridLayout();
     QGridLayout* laychannel34 = new QGridLayout();
@@ -117,6 +118,7 @@ void GUI::config_RC()
     laychannel34->addWidget(label_roll, 0, 1);
 
     layoverride->addWidget(check_override, 0, 0);
+    layoverride->addWidget(check_shared_control, 0, 1);
 
     layRC->addWidget(channel12, 0, 1);
     layRC->addLayout(laychannel12, 1, 0);
@@ -125,6 +127,7 @@ void GUI::config_RC()
     layRC->addLayout(layoverride, 2, 0);
 
     connect(check_override, SIGNAL(stateChanged(int)), this, SLOT(on_check_override_changed()));
+    connect(check_shared_control, SIGNAL(stateChanged(int)), this, SLOT(on_check_shared_control_changed()));
 
     mainLayout->addWidget(boxRC, 1, 0);
 }
@@ -132,6 +135,11 @@ void GUI::config_RC()
 void GUI::on_check_override_changed()
 {
     share_memory->setOverride(check_override->isChecked());
+}
+
+void GUI::on_check_shared_control_changed()
+{
+    share_memory->setSharedControl(check_shared_control->isChecked());
 }
 
 void GUI::updateThreadGUI()

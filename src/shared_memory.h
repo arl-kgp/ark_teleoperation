@@ -34,6 +34,9 @@ public:
     void setOverride(bool b);
     bool getOverride();
 
+    void setSharedControl(bool b);
+    bool getSharedControl();
+
     std::vector<int> getRC_maxlimits();
     std::vector<int> getRC_minlimits();
 private:
@@ -52,6 +55,7 @@ private:
     bool armed;
 
     bool override;
+    bool shared_control;
 };
 
 #endif // SHARED_MEMORY_H
